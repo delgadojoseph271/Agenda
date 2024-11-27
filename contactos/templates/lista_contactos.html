@@ -1,0 +1,35 @@
+
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <h1>Lista de Contactos</h1>
+
+    <!-- Botón para agregar un nuevo contacto -->
+    <a href="{% url 'crear_contacto' %}" class="btn btn-primary mb-3">Agregar Contacto</a>
+</div>
+
+<div class="row">
+    {% for contacto in contactos %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ contacto.nombre }}</h5>
+                    <p class="card-text"><strong>Correo electrónico:</strong> {{ contacto.correo_electronico }}</p>
+                    <p class="card-text"><strong>Teléfono:</strong> {{ contacto.numero_telefono }}</p>
+                    <p class="card-text"><strong>Notas:</strong> {{ contacto.notas|default:"Sin notas" }}</p>
+                    <a href="{% url 'editar_contacto' contacto.slug %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'borrar_contacto' contacto.slug %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas borrar este contacto?')">Borrar</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No tienes contactos.</div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

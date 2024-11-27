@@ -1,0 +1,48 @@
+{% url 'login' as login %}
+{% url 'registro' as registro %}
+{% url 'logout' as logout %}
+{% url "contactos" as contactos %}
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a href="{% url "contactos" %}" class='navbar-brand'>Contactos</a>
+    <div>
+
+        {% if user.is_authenticated %}
+                <ul>
+                    <li class="navbar-item {% if request.path == logout %} active{% endif %}">
+                        <a href="{{ logout }}" class="nav-link">
+                            <span class="fas fa-sign-in-alt"></span>
+                            Logout</a>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li class='nav-item'>
+                        <a href="{{ agregar }}">
+                            <span class=''></span> Cerrar sesion
+                        </a>
+
+                    </li>
+                </ul>
+    {% else %}
+
+        <li class="navbar-item {% if request.path == login %} active{% endif %}">
+            <a href="{{ login }}" class="nav-link">
+                <span class="fas fa-user"></span>
+                Login</a>
+        </li>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="navbar-item {% if request.path == register %} active{% endif %}">
+                <a href="{{ registro }}" class= "nav-link">
+                    <span class="fas fa-user-plus"></span>
+                    Registro</a>
+            </li>
+        </ul>
+
+        {% endif %}
+
+
+    </div>
+    
+
+</nav>
